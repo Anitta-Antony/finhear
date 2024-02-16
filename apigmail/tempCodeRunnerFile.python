@@ -1,0 +1,22 @@
+import nltk
+from nltk.tokenize import sent_tokenize
+from transformers import pipeline
+
+def summarize_text():
+    text="Enable integration with other productivity tools and apps such as calendars, task managers, or note-taking apps. This would allow users to seamlessly transition from managing emails to organizing their tasks and schedules."
+    # Tokenize the text into sentences
+    sentences = sent_tokenize(text)
+    
+    # Join the sentences into a single string for summarization
+    input_text = ' '.join(sentences)
+    
+    # Initialize the summarization pipeline
+    summarizer = pipeline("summarization")
+    
+    # Summarize the input text
+    summary = summarizer(input_text, max_length=150, min_length=30, do_sample=False)
+    
+    # Decode the summarized output
+    summarized_text = summary[0]['summary_text']
+    
+    return summarized_text
